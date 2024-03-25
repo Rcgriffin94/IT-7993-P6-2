@@ -12,7 +12,12 @@ import time
 import sys
 
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    layout="wide", 
+    page_title='KSU RSS Feed Parser • Refresh Records',
+    page_icon='📰'
+)
+
 add_logo('ksu_logo_resized.png')
 
 def connectToMongo(env):
