@@ -1,0 +1,4 @@
+#configprod.py
+
+MONGODB_USERNAME = 'it7993p6_2'
+MONGODB_PASSWORD = 'dizsVMKwj7Mt8YPS'

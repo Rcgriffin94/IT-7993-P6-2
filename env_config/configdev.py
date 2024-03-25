@@ -1,0 +1,4 @@
+#configdev.py
+
+MONGODB_DEV_USERNAME = "it7993p62dev"
+MONGODB_DEV_PASSWORD = "ths2OzMExEHi0oYM"
