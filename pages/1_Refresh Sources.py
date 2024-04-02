@@ -10,6 +10,7 @@ from env_config.configdev import MONGODB_DEV_USERNAME,MONGODB_DEV_PASSWORD
 from env_config.configprod import MONGODB_USERNAME, MONGODB_PASSWORD
 import time
 import sys
+import requests
 
 
 st.set_page_config(
@@ -44,12 +45,18 @@ def connectToMongo(env):
     # send a ping to confirm a successful connection
     try:
         client.admin.command('ping')
-        print("You successfully connected to MongoDB")
     except Exception as e:
         print(e)
 
     return client, databaseName, resultsCollectionName, URLCollectionName
-
+def get_sentiment(headline):
+	API_URL = "https://api-inference.huggingface.co/models/hakonmh/sentiment-xdistil-uncased"
+	headers = {"Authorization": f"Bearer {'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'}"}
+	json_payload = {'inputs': headline}
+	response = requests.post(API_URL, headers=headers, json=json_payload)
+	output = response.json()
+	max_score_label = max(output[0], key=lambda x: x['score'])['label'].upper()
+	return max_score_label
 
 st.title('Refresh Sources')
 env_options = ['- select an environment -', 'prod', 'dev']
@@ -70,7 +77,7 @@ if st.button('Run'):
         st.error('Please upload the source CSV file and try again')
         sys.exit()
 
-    timeout = 2
+    timeout = 5
 
     with st.status('Upload new sources'):
         client, databaseName, resultsCollectionName, URLCollectionName = connectToMongo(env_selection)
@@ -111,7 +118,8 @@ if st.button('Run'):
             'RSS Feed Name': [], 
             'Headline': [], 
             'Link': [],
-            'Date Published': []
+            'Date Published': [],
+            'Sentiment': []
         }
         
         for row in range(len(URLCollectionRecordsDF)):
@@ -129,6 +137,7 @@ if st.button('Run'):
                     data['RSS Feed Name'].append(siteName)
                     data['Headline'].append(entry.title)
                     data['Link'].append(entry.link)
+                    data['Sentiment'].append(get_sentiment(entry.title))
 
                     try: 
 
@@ -184,6 +193,7 @@ if st.button('Run'):
     with st.status('Remove duplicate records'):
         st.write('Review the current pull to itself and drop duplicates')
         resultsdf = pd.DataFrame(data)
+        resultsdf.to_excel(r"G:\\My Drive\\Ryan's Masters\\Spring 2024\\IT 7993 -  IT Capstone\\Github\\IT-7993-P6-2\\test_export.xlsx")
         # If the new results contain duplicates URL then keep the first record and drop the rest
         resultsdf =  resultsdf.drop_duplicates(subset=['Link'], keep='first')
 
