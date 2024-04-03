@@ -141,6 +141,12 @@ if st.button('Run'):
 
                     try: 
 
+                        if dateFormat == "dow, dd month yyyy hh:mm:ss tmz":
+                            date_str = str(entry.published)
+                            date_obj = datetime.strptime(date_str, "%a, %d %b %Y %H:%M:%S %z")
+                            formatted_date = date_obj.strftime("%m/%d/%Y")
+                            data['Date Published'].append(formattedDate)
+
                         if dateFormat == 'dow, dd mm yyyy hh:mm:ss tmz':
                             date_object = datetime.strptime(entry.published, '%a, %d %b %Y %H:%M:%S %Z')
                             formattedDate = date_object.strftime('%m/%d/%Y')
@@ -193,7 +199,6 @@ if st.button('Run'):
     with st.status('Remove duplicate records'):
         st.write('Review the current pull to itself and drop duplicates')
         resultsdf = pd.DataFrame(data)
-        resultsdf.to_excel(r"G:\\My Drive\\Ryan's Masters\\Spring 2024\\IT 7993 -  IT Capstone\\Github\\IT-7993-P6-2\\test_export.xlsx")
         # If the new results contain duplicates URL then keep the first record and drop the rest
         resultsdf =  resultsdf.drop_duplicates(subset=['Link'], keep='first')
 
