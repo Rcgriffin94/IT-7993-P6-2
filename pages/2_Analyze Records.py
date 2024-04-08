@@ -7,7 +7,14 @@ from pymongo.server_api import ServerApi
 import certifi
 import sys
 import pandas as pd
+from fuzzywuzzy import fuzz
+import numpy as np
+import matplotlib.pyplot as plt
 
+
+def search_headlines(keyword, headline):
+    match_score = fuzz.partial_ratio(keyword.lower(), headline.lower())
+    return match_score
 
 def connectToMongo(env):
 
@@ -49,7 +56,9 @@ st.title('Analyze Sources')
 
 env_options = ['- select an environment -', 'prod', 'dev']
 env_selection = st.selectbox('Select an Environment', env_options, index=0)
-keyword = st.text_input('Keyword search', value=None)
+keyword = st.text_input('Keyword search', value=None).lower()
+search_accuracy_options = ['Low', 'Medium', 'High']
+search_accuracy =  st.select_slider(label='Select a search accuracy value',options=search_accuracy_options)
 col1, col2 = st.columns(2)
 with col1:
     start_date = st.date_input('Start Date', value=None)
@@ -114,5 +123,33 @@ if st.button('Run'):
     end_date = pd.to_datetime(end_date)
     filtered_df = existingURLSDF[(existingURLSDF['Date Published'] >= start_date) & (existingURLSDF['Date Published'] <= end_date)]
 
-    st.write(f'There were {len(filtered_df)} records found')
+
+    if search_accuracy == 'Low':
+        threshold = 25
+    if search_accuracy == 'Medium':
+        threshold = 50
+    if search_accuracy == 'High':
+        threshold = 75
+
+    filtered_df['Match_Scores'] = filtered_df['Headline'].apply(lambda headline: search_headlines(keyword, headline))
+    filtered_df = filtered_df[filtered_df['Match_Scores'] >= threshold]
+    filtered_df = filtered_df.sort_values(by='Match_Scores', ascending=False)
+
+    st.title(f'There were {len(filtered_df)} records found')
+
+    # Bar chart
+    st.subheader('Headline Sentiment Analysis Counts')
+    sentiment_counts = filtered_df['Sentiment'].value_counts()
+    st.bar_chart(sentiment_counts)
+
+    # Line Chart
+    filtered_df['Date Published'] = pd.to_datetime(filtered_df['Date Published'])
+    grouped_df = filtered_df.groupby(['Date Published', 'Sentiment']).size().unstack(fill_value=0)
+    grouped_df.reset_index(inplace=True)
+    grouped_df['Date Published'] = grouped_df['Date Published'].dt.strftime('%Y-%m-%d')
+    st.subheader('Headline Sentiment Analysis over time by article publication date')
+    chart_data = grouped_df.set_index('Date Published')
+    st.line_chart(chart_data)
+
+    st.subheader('Raw Data')
     st.dataframe(filtered_df)
