@@ -56,7 +56,9 @@ st.title('Analyze Sources')
 
 env_options = ['- select an environment -', 'prod', 'dev']
 env_selection = st.selectbox('Select an Environment', env_options, index=0)
-keyword = st.text_input('Keyword search', value=None).lower()
+keyword = st.text_input('Keyword search', value=None)
+if keyword is not None:
+    keyword = keyword.lower()
 search_accuracy_options = ['Low', 'Medium', 'High']
 search_accuracy =  st.select_slider(label='Select a search accuracy value',options=search_accuracy_options)
 col1, col2 = st.columns(2)
