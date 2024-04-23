@@ -9,6 +9,9 @@ st.set_page_config(
 
 add_logo('ksu_logo_resized.png')
 
+sideb = st.sidebar
+learn_more = sideb.link_button('Click me to view project details', url='https://kennesawedu.sharepoint.com/sites/Team-IT7993P62/SitePages/Home.aspx?OR=Teams-HL&CT=1713830984909&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIxNDE1LzI0MDMxNDE0NzIwIn0%3D')
+
 st.title('Welcome to our RSS Financial News Feed Parser!')
 
 st.write('Disclaimer: This tool is currently in beta and is not designed to be ran by multiple users at once due to API constraints.')
