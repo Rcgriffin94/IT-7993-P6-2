@@ -21,6 +21,9 @@ st.set_page_config(
 
 add_logo('ksu_logo_resized.png')
 
+sideb = st.sidebar
+learn_more = sideb.link_button('Click me to view project details. KSU Login required.', url='https://kennesawedu.sharepoint.com/:u:/r/sites/Team-IT7993P62/SitePages/Home.aspx?csf=1&web=1&share=EUU5-gklx6BAiIoOu3ZyYc0ByoNeT6Aa13RfY2VuW3wKbA&e=3fVxmy')
+
 def connectToMongo(env):
 
     if env == 'dev':

@@ -10,7 +10,7 @@ st.set_page_config(
 add_logo('ksu_logo_resized.png')
 
 sideb = st.sidebar
-learn_more = sideb.link_button('Click me to view project details', url='https://kennesawedu.sharepoint.com/sites/Team-IT7993P62/SitePages/Home.aspx?OR=Teams-HL&CT=1713830984909&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIxNDE1LzI0MDMxNDE0NzIwIn0%3D')
+learn_more = sideb.link_button('Click me to view project details. KSU Login required.', url='https://kennesawedu.sharepoint.com/:u:/r/sites/Team-IT7993P62/SitePages/Home.aspx?csf=1&web=1&share=EUU5-gklx6BAiIoOu3ZyYc0ByoNeT6Aa13RfY2VuW3wKbA&e=3fVxmy')
 
 st.title('Welcome to our RSS Financial News Feed Parser!')
 
