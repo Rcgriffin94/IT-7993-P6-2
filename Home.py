@@ -13,6 +13,7 @@ sideb = st.sidebar
 learn_more = sideb.link_button('Click me to view project details. KSU Login required.', url='https://kennesawedu.sharepoint.com/:u:/r/sites/Team-IT7993P62/SitePages/Home.aspx?csf=1&web=1&share=EUU5-gklx6BAiIoOu3ZyYc0ByoNeT6Aa13RfY2VuW3wKbA&e=3fVxmy')
 
 st.title('Welcome to our RSS Financial News Feed Parser!')
+st.title('KSU Project ID: GW1-P6-2')
 
 st.write('Disclaimer: This tool is currently in beta and is not designed to be ran by multiple users at once due to API constraints.')
 
