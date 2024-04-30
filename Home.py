@@ -18,7 +18,6 @@ st.title('KSU Project ID: GW1-P6-2')
 st.write('Disclaimer: This tool is currently in beta and is not designed to be ran by multiple users at once due to API constraints.')
 
 st.write('This application will provide you with an AI sentiment analysis of recent financial news from across the internet. From here you can view the analysis using "Analyze Records" and filter by keyword and time frame. While a number of sources from across the internet are already in place, you have the ability to add additional sources to create a more thourough analysis - simply upload additional sources through the "Refresh Sources" option. Happy analysis!')
-
+st.subheader('By: Raissa Divinagracia, Ryan Griffin, Justin Mayercik, Joshua McMillion, and Jacob Sweat')
 st.write('Link to presentation video is https://www.youtube.com/watch?v=BJgf5XnsWP4&t=1s')
 st.video('https://www.youtube.com/watch?v=BJgf5XnsWP4&t=1s')
-st.subheader('By: Raissa Divinagracia, Ryan Griffin, Justin Mayercik, Joshua McMillion, and Jacob Sweat')
