@@ -57,7 +57,7 @@ learn_more = sideb.link_button('Click me to view project details. KSU Login requ
 add_logo('ksu_logo_resized.png')
 
 st.title('Analyze Sources')
-
+st.title('KSU Project ID: GW1-P6-2')
 env_options = ['- select an environment -', 'prod', 'dev']
 env_selection = st.selectbox('Select an Environment', env_options, index=0)
 keyword = st.text_input('Keyword search', value=None)

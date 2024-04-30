@@ -62,6 +62,7 @@ def get_sentiment(headline):
 	return max_score_label
 
 st.title('Refresh Sources')
+st.title('KSU Project ID: GW1-P6-2')
 env_options = ['- select an environment -', 'prod', 'dev']
 env_selection = st.selectbox('Select an Environment', env_options, index=0)
 
